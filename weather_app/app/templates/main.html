@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Main page
+{% endblock %}
+
+{% block body %}
+<div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4" src="https://static.tildacdn.com/tild3965-3930-4737-a466-326465333335/__.jpg" alt="" width="72" height="57"> <h1 class="display-5 fw-bold text-body-emphasis">Прогноз погоды</h1> <div class="col-lg-6 mx-auto"> <p class="lead mb-4">Планируйте прогулки, путешествия, дела с уверенностью, ведь природа непредсказуема, а вы — подготовлены!</p> <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"> </div> </div> </div>
+<div class="container mt-4">
+    <form method="POST" action="/weather">
+        <div class="input-group mb-3">
+            <input type="text" 
+                   class="form-control" 
+                   name="city" 
+                   placeholder="Введите город">
+            <button class="btn btn-primary" 
+                    type="submit">Показать погоду</button>
+        </div>
+    </form>
+
+    {% if weather %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ weather.city }}</h2>
+            <div class="d-flex align-items-center">
+                <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" 
+                     alt="Weather Icon" 
+                     class="img-fluid" 
+                     style="width: 80px">
+                <div class="ms-3">
+                    <h3 class="display-4">{{ weather.temp }}°C</h3>
+                    <p class="text-muted">Ощущается как {{ weather.feels_like }}°C</p>
+                </div>
+            </div>
+            <p class="lead mt-2">{{ weather.description }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger mt-3">
+        Ошибка: {{ error }}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
